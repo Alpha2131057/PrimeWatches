@@ -176,6 +176,7 @@ document.addEventListener('DOMContentLoaded', function () {
             cartHtml += `<li><span class='cart-name'>${w.name}</span><span class='cart-desc'>${w.desc}</span><span class='cart-price'>৳${w.price}</span> <button class='cart-cancel-btn' data-index='${i}'>Cancel</button></li>`;
           });
           cartHtml += '</ul>';
+          cartHtml += '<button class="cart-pay-btn">Pay Now</button>';
           showPopup(cartHtml);
           // Add cancel button logic
           setTimeout(() => {
@@ -183,14 +184,19 @@ document.addEventListener('DOMContentLoaded', function () {
               btn.onclick = function(e) {
                 const idx = parseInt(btn.getAttribute('data-index'));
                 orderedWatches.splice(idx, 1);
-                // Close popup
-                document.querySelector('.popup-close').click();
-                // Reopen cart with updated items
+                document.querySelector('.popup-close').click(); // Close popup
                 setTimeout(() => {
-                  document.querySelector('.cart').click();
+                  document.querySelector('.cart').click(); // Reopen cart
                 }, 100);
               };
             });
+            // Pay Now button logic
+            const payBtn = document.querySelector('.cart-pay-btn');
+            if (payBtn) {
+              payBtn.onclick = function() {
+                showPopup('<div class="success-cart">Payment functionality coming soon!</div>');
+              };
+            }
           }, 50);
         }
       } else if (text === 'Contact') {
@@ -213,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
         showPopup(`
           <div style='font-size:1.08em; color:#222; text-align:left; max-width:480px; margin:auto;'>
             <b>PrimeWatches</b> is a luxury watch destination crafted for those who value precision, power, and timeless design.<br><br>
-            Our curated collection features iconic chronographs, elegant automatics, and masterfully engineered sports watches—each selected for its craftsmanship, performance, and signature style.<br><br>
+            Our curated collection features iconic chronographs, elegant automatics, and masterfully engineered sports watches each selected for its craftsmanship, performance, and signature style.<br><br>
             At PrimeWatches, we believe a watch is more than a timepiece; it’s a statement of identity, heritage, and ambition.<br>
             From deep-sea chronographs to heritage-inspired classics, every watch in our Signature Collection blends modern engineering with premium artistry.<br><br>
             Whether you are a collector, an enthusiast, or someone exploring luxury timepieces for the first time, PrimeWatches offers a refined and trustworthy shopping experience built for modern elites.<br><br>
@@ -239,6 +245,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  // Helper to show/hide cart notification
+  function setCartNotify(show) {
+    const notify = document.querySelector('.cart-notify');
+    if (notify) notify.style.display = show ? 'block' : 'none';
+  }
+
   // Add to Cart buttons
   document.querySelectorAll('.add-cart-btn').forEach(function (btn) {
     btn.addEventListener('click', function (e) {
@@ -248,7 +260,15 @@ document.addEventListener('DOMContentLoaded', function () {
       const desc = card.querySelector('p').textContent;
       const price = card.querySelector('span').textContent.replace('৳','');
       orderedWatches.push({ name, desc, price });
+      setCartNotify(true);
       showPopup(`<div class='success-cart'>Successfully added to cart!</div><b>${name}</b> is now in your cart.`);
+    });
+  });
+
+  // Cart button click: show cart and clear notification
+  document.querySelectorAll('.menu .cart').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      setCartNotify(false);
     });
   });
 
