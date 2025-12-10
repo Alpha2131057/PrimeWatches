@@ -107,6 +107,60 @@ document.addEventListener('DOMContentLoaded', function () {
     if (e.target === popup) hidePopup();
   };
 
+  // Create account popup container
+  const accountPopup = document.createElement('div');
+  accountPopup.id = 'account-popup';
+  accountPopup.style.display = 'none';
+  accountPopup.innerHTML = `
+    <div class="account-content">
+      <span class="account-close">&times;</span>
+      <div class="account-title">My Account</div>
+      <div class="account-tabs">
+        <button class="account-tab active" data-tab="login">Login</button>
+        <button class="account-tab" data-tab="register">Register</button>
+      </div>
+      <form class="account-form" data-tab="login">
+        <label>EMAIL</label>
+        <input type="email" name="email" required placeholder="your@email.com">
+        <label>PASSWORD</label>
+        <input type="password" name="password" required placeholder="Your password">
+        <button type="submit" class="account-action">Login</button>
+      </form>
+      <form class="account-form" data-tab="register" style="display:none;">
+        <label>EMAIL</label>
+        <input type="email" name="email" required placeholder="your@email.com">
+        <label>PASSWORD</label>
+        <input type="password" name="password" required placeholder="Create a password">
+        <button type="submit" class="account-action">Register</button>
+      </form>
+    </div>
+  `;
+  document.body.appendChild(accountPopup);
+
+  function showAccount(tab) {
+    accountPopup.style.display = 'flex';
+    setAccountTab(tab || 'login');
+  }
+  function hideAccount() {
+    accountPopup.style.display = 'none';
+  }
+  accountPopup.querySelector('.account-close').onclick = hideAccount;
+  accountPopup.onclick = function (e) {
+    if (e.target === accountPopup) hideAccount();
+  };
+
+  function setAccountTab(tab) {
+    accountPopup.querySelectorAll('.account-tab').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.tab === tab);
+    });
+    accountPopup.querySelectorAll('.account-form').forEach(form => {
+      form.style.display = form.dataset.tab === tab ? '' : 'none';
+    });
+  }
+  accountPopup.querySelectorAll('.account-tab').forEach(btn => {
+    btn.onclick = () => setAccountTab(btn.dataset.tab);
+  });
+
   // Header buttons
   document.querySelectorAll('.menu a').forEach(function (btn) {
     btn.addEventListener('click', function (e) {
@@ -118,11 +172,26 @@ document.addEventListener('DOMContentLoaded', function () {
           showPopup('<div class="cart-title">Your cart is empty.</div>');
         } else {
           let cartHtml = '<div class="cart-title">Your Cart</div><ul class="cart-list">';
-          orderedWatches.forEach(w => {
-            cartHtml += `<li><span class='cart-name'>${w.name}</span><span class='cart-desc'>${w.desc}</span><span class='cart-price'>৳${w.price}</span></li>`;
+          orderedWatches.forEach((w, i) => {
+            cartHtml += `<li><span class='cart-name'>${w.name}</span><span class='cart-desc'>${w.desc}</span><span class='cart-price'>৳${w.price}</span> <button class='cart-cancel-btn' data-index='${i}'>Cancel</button></li>`;
           });
           cartHtml += '</ul>';
           showPopup(cartHtml);
+          // Add cancel button logic
+          setTimeout(() => {
+            document.querySelectorAll('.cart-cancel-btn').forEach(btn => {
+              btn.onclick = function(e) {
+                const idx = parseInt(btn.getAttribute('data-index'));
+                orderedWatches.splice(idx, 1);
+                // Close popup
+                document.querySelector('.popup-close').click();
+                // Reopen cart with updated items
+                setTimeout(() => {
+                  document.querySelector('.cart').click();
+                }, 100);
+              };
+            });
+          }, 50);
         }
       } else if (text === 'Contact') {
         showPopup(`
@@ -182,4 +251,11 @@ document.addEventListener('DOMContentLoaded', function () {
       showPopup(`<div class='success-cart'>Successfully added to cart!</div><b>${name}</b> is now in your cart.`);
     });
   });
+
+  document.querySelector('.login-btn').onclick = function () {
+    showAccount('login');
+  };
+  document.querySelector('.signup-btn').onclick = function () {
+    showAccount('register');
+  };
 });
