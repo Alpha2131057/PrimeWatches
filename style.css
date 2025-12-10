@@ -550,6 +550,27 @@ footer p {
   color: #fff;
 }
 
+.cart-pay-btn {
+  display: block;
+  width: 100%;
+  margin: 1.2em auto 0 auto;
+  background: #c7a96b;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  padding: 0.8em 0;
+  font-size: 1.08em;
+  cursor: pointer;
+  box-shadow: 0 0 8px #e5e1d8, 0 0 16px #c7a96b33;
+  transition: background 0.2s, color 0.2s;
+}
+
+.cart-pay-btn:hover {
+  background: #222;
+  color: #fff;
+}
+
 /* ================= ACCOUNT POPUP ================= */
 #account-popup {
   position: fixed;
@@ -670,4 +691,22 @@ footer p {
 .account-action:hover {
   background: #fff;
   color: #222;
+}
+
+.cart {
+  position: relative;
+}
+
+.cart-notify {
+  display: none;
+  position: absolute;
+  top: 0.1em;
+  right: 0.1em;
+  width: 13px;
+  height: 13px;
+  background: #e53935;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  z-index: 2;
+  box-shadow: 0 0 4px #e53935;
 }
