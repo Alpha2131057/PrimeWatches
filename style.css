@@ -62,6 +62,31 @@ body {
   color: #D6C6A1;
 }
 
+.header-btn {
+  background: #c7a96b;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  padding: 0.5em 1.3em;
+  font-size: 1em;
+  margin-left: 1em;
+  cursor: pointer;
+  box-shadow: 0 0 8px #e5e1d8, 0 0 16px #c7a96b33;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.header-btn.signup-btn {
+  background: #222;
+  color: #fff;
+  border: 1px solid #c7a96b;
+}
+
+.header-btn:hover {
+  background: #222;
+  color: #fff;
+}
+
 /* ================= HERO ================= */
 .hero {
   display: flex;
@@ -505,4 +530,144 @@ footer p {
   font-weight: bold;
   margin-bottom: 1em;
   text-align: center;
+}
+
+.cart-cancel-btn {
+  background: #c7a96b;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.3em 0.9em;
+  font-size: 0.95em;
+  margin-left: 1em;
+  cursor: pointer;
+  box-shadow: 0 0 4px #e5e1d8, 0 0 8px #c7a96b33;
+  transition: background 0.2s, color 0.2s;
+}
+
+.cart-cancel-btn:hover {
+  background: #222;
+  color: #fff;
+}
+
+/* ================= ACCOUNT POPUP ================= */
+#account-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+#account-popup[style*="display: none"] {
+  pointer-events: none;
+}
+
+.account-content {
+  background: #181818;
+  color: #fff;
+  padding: 2rem 2.5rem 2rem 2.5rem;
+  border-radius: 18px;
+  box-shadow: 0 0 32px #c7a96b, 0 0 64px #222;
+  min-width: 320px;
+  max-width: 95vw;
+  font-size: 1.08rem;
+  position: relative;
+}
+
+.account-close {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+  font-size: 2rem;
+  color: #c7a96b;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.account-close:hover {
+  color: #fff;
+}
+
+.account-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 1.2rem;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.account-tabs {
+  display: flex;
+  gap: 0.5em;
+  margin-bottom: 1.2em;
+}
+
+.account-tab {
+  flex: 1 1 0;
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 8px 8px 0 0;
+  padding: 0.7em 0;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.account-tab.active {
+  background: #c7a96b;
+  color: #222;
+}
+
+.account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7em;
+  margin-bottom: 0.5em;
+}
+
+.account-form label {
+  font-size: 0.95em;
+  color: #c7a96b;
+  margin-bottom: 0.2em;
+  font-weight: 500;
+}
+
+.account-form input {
+  background: #222;
+  color: #fff;
+  border: 1px solid #c7a96b;
+  border-radius: 8px;
+  padding: 0.7em 1em;
+  font-size: 1rem;
+}
+
+.account-form input:focus {
+  outline: 2px solid #c7a96b;
+}
+
+.account-action {
+  margin-top: 0.7em;
+  background: #c7a96b;
+  color: #222;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7em 0;
+  font-size: 1em;
+  cursor: pointer;
+  box-shadow: 0 0 8px #c7a96b33;
+  transition: background 0.2s, color 0.2s;
+}
+
+.account-action:hover {
+  background: #fff;
+  color: #222;
 }
